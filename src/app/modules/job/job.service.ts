@@ -832,6 +832,9 @@ const updateManualJob = async (
       vehicleColor,
       numberPlate,
       vinNumber,
+
+      totalCost,
+      status,
     } = payload;
 
     /**
@@ -895,6 +898,11 @@ const updateManualJob = async (
       job.dropOffLocation = dropOffLocation;
     }
 
+    /** Update total cost */
+    if (totalCost) {
+      job.totalCost = totalCost;
+    }
+
     await job.save({ session });
 
     /**
@@ -916,6 +924,12 @@ const updateManualJob = async (
     });
 
     await manualJob.save({ session });
+
+    /** job request */
+    if (status && jobRequest) {
+      jobRequest.status = status;
+      await jobRequest.save({ session });
+    }
 
     /**
      * Driver reassignment
