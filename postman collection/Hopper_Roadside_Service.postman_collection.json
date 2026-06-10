@@ -1,0 +1,252 @@
+{
+  "info": {
+    "_postman_id": "hopper-service-api-collection",
+    "name": "Hopper Roadside - Service API",
+    "description": "Service management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Service",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Emergency Towing",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "24/7 emergency towing service",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "100",
+              "type": "text"
+            },
+            {
+              "key": "milageFee",
+              "value": "5",
+              "type": "text"
+            },
+            {
+              "key": "totalFee",
+              "value": "10",
+              "type": "text"
+            },
+            {
+              "key": "category",
+              "value": "6507f1d4c5a3e2001f8b4567",
+              "type": "text"
+            },
+            {
+              "key": "icon",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/service/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "service", "create"]
+        },
+        "description": "Create a new service with icon upload (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Services by Category",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/service/:categoryId?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "service", ":categoryId"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ],
+          "variable": [
+            {
+              "key": "categoryId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get all services in a specific category (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Confirm Service Details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/service/confirm_service/:serviceId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "service", "confirm_service", ":serviceId"],
+          "variable": [
+            {
+              "key": "serviceId",
+              "value": "6507f1d4c5a3e2001f8b4568"
+            }
+          ]
+        },
+        "description": "Get service details for confirmation (Customer only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Edit Service",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Premium Towing Service",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "Premium 24/7 towing with express service",
+              "type": "text"
+            },
+            {
+              "key": "price",
+              "value": "150",
+              "type": "text"
+            },
+            {
+              "key": "milageFee",
+              "value": "7",
+              "type": "text"
+            },
+            {
+              "key": "totalFee",
+              "value": "15",
+              "type": "text"
+            },
+            {
+              "key": "icon",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/service/edit/:serviceId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "service", "edit", ":serviceId"],
+          "variable": [
+            {
+              "key": "serviceId",
+              "value": "6507f1d4c5a3e2001f8b4568"
+            }
+          ]
+        },
+        "description": "Update an existing service (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Service",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/service/delete/:serviceId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "service", "delete", ":serviceId"],
+          "variable": [
+            {
+              "key": "serviceId",
+              "value": "6507f1d4c5a3e2001f8b4568"
+            }
+          ]
+        },
+        "description": "Delete a service (Admin only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

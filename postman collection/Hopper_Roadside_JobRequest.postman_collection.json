@@ -1,0 +1,254 @@
+{
+  "info": {
+    "_postman_id": "hopper-jobrequest-api-collection",
+    "name": "Hopper Roadside - Job Request API",
+    "description": "Job request management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Accept Job Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobId\": \"6507f1d4c5a3e2001f8b4567\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/accept",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "job_request", "accept"]
+        },
+        "description": "Driver accepts a job request (Driver only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Job Request Action",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "jobRequestId",
+              "value": "6507f1d4c5a3e2001f8b4567",
+              "type": "text"
+            },
+            {
+              "key": "status",
+              "value": "en-route",
+              "type": "text",
+              "description": "Status: en-route | working | completed | cancelled"
+            },
+            {
+              "key": "beforeImage",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "signature",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "afterImage",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "job_request", "action"]
+        },
+        "description": "Update job request status with optional images (Driver only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Job History",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/history?page=1&limit=10&status=completed",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "job_request", "history"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "status",
+              "value": "completed",
+              "description": "Filter by status"
+            }
+          ]
+        },
+        "description": "Get job history for authenticated user (Customer/Driver/Admin/Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Jobs (Admin/Company)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/all_jobs?page=1&limit=10&searchTerm=",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "job_request", "all_jobs"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "searchTerm",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Get all job requests in the system (Admin/Hopper Company/Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Find Driver for Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/find_driver/:jobRequestId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "job_request", "find_driver", ":jobRequestId"],
+          "variable": [
+            {
+              "key": "jobRequestId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get driver information assigned to a job request (Customer only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Track Driver Location",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/job_request/track_location/:jobRequestId",
+          "host": ["{{base_url}}"],
+          "path": [
+            "api",
+            "v1",
+            "job_request",
+            "track_location",
+            ":jobRequestId"
+          ],
+          "variable": [
+            {
+              "key": "jobRequestId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Track real-time location of driver assigned to job (Customer/Dispatcher/Company/Hopper Company/Driver only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

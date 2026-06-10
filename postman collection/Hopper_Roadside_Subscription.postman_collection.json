@@ -1,0 +1,213 @@
+{
+  "info": {
+    "_postman_id": "hopper-subscription-api-collection",
+    "name": "Hopper Roadside - Subscription API",
+    "description": "Subscription plan management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Subscription",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Premium Plan\",\n  \"description\": \"Premium subscription with unlimited jobs\",\n  \"price\": 99.99,\n  \"duration\": \"monthly\",\n  \"features\": [\"Unlimited jobs\", \"Priority support\", \"24/7 availability\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription", "create"]
+        },
+        "description": "Create a new subscription plan (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Subscriptions",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all subscription plans (Admin/Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get My Subscription",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription/my_subscription",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription", "my_subscription"]
+        },
+        "description": "Get current user's active subscription (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Subscription by ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription/:subscriptionId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription", ":subscriptionId"],
+          "variable": [
+            {
+              "key": "subscriptionId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get specific subscription details (Admin/Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Subscription",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Premium Plus Plan\",\n  \"description\": \"Premium subscription with enhanced features\",\n  \"price\": 149.99,\n  \"features\": [\"Unlimited jobs\", \"Priority support\", \"24/7 availability\", \"Dedicated account manager\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription/:subscriptionId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription", ":subscriptionId"],
+          "variable": [
+            {
+              "key": "subscriptionId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Update subscription plan details (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Subscription",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/subscription/:subscriptionId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "subscription", ":subscriptionId"],
+          "variable": [
+            {
+              "key": "subscriptionId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Delete a subscription plan (Admin only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

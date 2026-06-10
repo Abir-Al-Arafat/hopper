@@ -1,0 +1,95 @@
+{
+  "info": {
+    "_postman_id": "hopper-pendingpayout-api-collection",
+    "name": "Hopper Roadside - Pending Payout API",
+    "description": "Pending payout management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Get Pending Payouts",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/pending_payout?page=1&limit=10&status=pending",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pending_payout"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "status",
+              "value": "pending",
+              "description": "Filter by status: pending | paid | rejected"
+            }
+          ]
+        },
+        "description": "Get all pending payouts (Admin/Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Payout Action",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payoutId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"action\": \"approve\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/pending_payout/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "pending_payout", "action"]
+        },
+        "description": "Approve or reject a pending payout (Admin/Company/Hopper Company only). Action: approve | reject"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,562 @@
+{
+  "info": {
+    "_postman_id": "hopper-users-api-collection",
+    "name": "Hopper Roadside - Users API",
+    "description": "User management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Admin",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"adminpassword123\",\n  \"name\": \"Admin User\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/create_admin",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "create_admin"]
+        },
+        "description": "Create a new admin user (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Customers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users?page=1&limit=10&searchTerm=",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "searchTerm",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Get all customers with pagination and search (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Companies",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/company?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "company"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all companies (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Company Requests",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/company_request?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "company_request"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all pending company registration requests (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Requests",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/driver_request?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "driver_request"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all pending driver requests (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Admins",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/all_admin",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "all_admin"]
+        },
+        "description": "Get all admin users (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Overview",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/customer_overview",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "customer_overview"]
+        },
+        "description": "Get customer statistics overview (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Dispatchers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/all_dispatcher",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "all_dispatcher"]
+        },
+        "description": "Get all dispatchers (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Driver Request Action",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"driverId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"action\": \"approve\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/driver_request/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "driver_request", "action"]
+        },
+        "description": "Approve or reject driver request (Company/Hopper Company only). Action: approve | reject"
+      },
+      "response": []
+    },
+    {
+      "name": "Approve Request Action",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"action\": \"approve\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/approve_request/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "approve_request", "action"]
+        },
+        "description": "Approve or reject company registration request (Admin only). Action: approve | reject"
+      },
+      "response": []
+    },
+    {
+      "name": "Leave Company",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reason\": \"Found better opportunity\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/leave_company",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "leave_company"]
+        },
+        "description": "Driver or Dispatcher leaves their current company"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Company by ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/company/:companyId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "company", ":companyId"],
+          "variable": [
+            {
+              "key": "companyId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get company details by ID (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/:userId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", ":userId"],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get user details by ID (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/:userId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", ":userId"],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Soft delete a user (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Block/Unblock User",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"blocked\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/block_unblock/:userId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "block_unblock", ":userId"],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Block or unblock a user (Admin only). Status: active | blocked"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Driver Activity",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activity\": \"available\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/update_activity",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "update_activity"]
+        },
+        "description": "Update driver activity status (Driver only). Activity: available | offline | on-job"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Driver Location",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"longitude\": -73.935242,\n  \"latitude\": 40.730610\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/users/update_location",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "users", "update_location"]
+        },
+        "description": "Update driver's current location (Driver only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

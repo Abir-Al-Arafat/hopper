@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "hopper-auth-api-collection",
+    "name": "Hopper Roadside - Auth API",
+    "description": "Complete authentication endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"customer\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/register",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "register"]
+        },
+        "description": "Register a new user. Available roles: admin, customer, driver, dispatcher, company, hopperCompany"
+      },
+      "response": []
+    },
+    {
+      "name": "Verify Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"otp\": 123456\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/verify_email",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "verify_email"]
+        },
+        "description": "Verify email with OTP received after registration"
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.data && jsonData.data.accessToken) {",
+              "    pm.environment.set(\"access_token\", jsonData.data.accessToken);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "login"]
+        },
+        "description": "Login with email and password. Returns access token."
+      },
+      "response": []
+    },
+    {
+      "name": "Forgot Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/forgot_password",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "forgot_password"]
+        },
+        "description": "Send OTP to email for password reset"
+      },
+      "response": []
+    },
+    {
+      "name": "Verify OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"otp\": 123456\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/verify_otp",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "verify_otp"]
+        },
+        "description": "Verify OTP for password reset"
+      },
+      "response": []
+    },
+    {
+      "name": "Reset Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"newPassword\": \"newpassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/reset_password",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "reset_password"]
+        },
+        "description": "Reset password with token and new password"
+      },
+      "response": []
+    },
+    {
+      "name": "Change Password",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"oldPassword\": \"currentpassword123\",\n  \"newPassword\": \"newpassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/change_password",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "change_password"]
+        },
+        "description": "Change password for authenticated user"
+      },
+      "response": []
+    },
+    {
+      "name": "Resend OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/resend_otp",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "resend_otp"]
+        },
+        "description": "Resend OTP to user's email"
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/logout",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "logout"]
+        },
+        "description": "Logout authenticated user"
+      },
+      "response": []
+    },
+    {
+      "name": "Social Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"name\": \"John Doe\",\n  \"provider\": \"google\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/social_login",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "auth", "social_login"]
+        },
+        "description": "Login using social authentication (Google, Facebook, etc.)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

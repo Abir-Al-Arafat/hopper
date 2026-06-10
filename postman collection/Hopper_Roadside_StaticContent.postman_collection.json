@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "hopper-staticcontent-api-collection",
+    "name": "Hopper Roadside - Static Content API",
+    "description": "Static content management endpoints (Privacy Policy, Terms, FAQ) for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Static Content",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"privacy-policy\",\n  \"title\": \"Privacy Policy\",\n  \"content\": \"Your privacy is important to us...\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/static_content/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "static_content", "create"]
+        },
+        "description": "Create static content (Admin only). Type: privacy-policy | terms-of-service | faq"
+      },
+      "response": []
+    },
+    {
+      "name": "Create FAQ",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"faq\",\n  \"title\": \"Frequently Asked Questions\",\n  \"faqs\": [\n    {\n      \"question\": \"How do I request roadside assistance?\",\n      \"answer\": \"Simply create a job request from the app and a nearby driver will be assigned.\"\n    },\n    {\n      \"question\": \"What payment methods are accepted?\",\n      \"answer\": \"We accept all major credit cards through our secure Stripe payment gateway.\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/static_content/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "static_content", "create"]
+        },
+        "description": "Create FAQ content with multiple questions and answers (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Static Content",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/static_content?type=privacy-policy",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "static_content"],
+          "query": [
+            {
+              "key": "type",
+              "value": "privacy-policy",
+              "description": "Type: privacy-policy | terms-of-service | faq"
+            }
+          ]
+        },
+        "description": "Get static content by type (All authenticated users)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

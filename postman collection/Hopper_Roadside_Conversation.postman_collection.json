@@ -1,0 +1,139 @@
+{
+  "info": {
+    "_postman_id": "hopper-conversation-api-collection",
+    "name": "Hopper Roadside - Conversation API",
+    "description": "Messaging and conversation endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Conversation",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"participantId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"jobRequestId\": \"6507f1d4c5a3e2001f8b4568\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/conversation/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "conversation", "create"]
+        },
+        "description": "Create a new conversation between users (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Conversations",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/conversation?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "conversation"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all conversations for authenticated user (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Messages by Conversation",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/conversation/messages/:conversationId?page=1&limit=20",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "conversation", "messages", ":conversationId"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            }
+          ],
+          "variable": [
+            {
+              "key": "conversationId",
+              "value": "6507f1d4c5a3e2001f8b4569"
+            }
+          ]
+        },
+        "description": "Get all messages in a specific conversation (All authenticated users)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}

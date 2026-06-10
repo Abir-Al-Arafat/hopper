@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "hopper-profile-api-collection",
+    "name": "Hopper Roadside - Profile API",
+    "description": "Profile management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Get My Profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/my_profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "my_profile"]
+        },
+        "description": "Get authenticated user's profile information (All roles)"
+      },
+      "response": []
+    },
+    {
+      "name": "Admin Overview",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/admin_overview",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "admin_overview"]
+        },
+        "description": "Get admin dashboard overview with system statistics (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Profile",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "John Doe",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "+1234567890",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "123 Main St",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "value": "New York",
+              "type": "text"
+            },
+            {
+              "key": "state",
+              "value": "NY",
+              "type": "text"
+            },
+            {
+              "key": "zipCode",
+              "value": "10001",
+              "type": "text"
+            },
+            {
+              "key": "gender",
+              "value": "male",
+              "type": "text",
+              "description": "male | female | others"
+            },
+            {
+              "key": "dateOfBirth",
+              "value": "1990-01-01",
+              "type": "text"
+            },
+            {
+              "key": "profileImage",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/update_profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "update_profile"]
+        },
+        "description": "Update user profile information (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Complete Profile (Driver)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "John Driver",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "+1234567890",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "123 Main St",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "value": "New York",
+              "type": "text"
+            },
+            {
+              "key": "state",
+              "value": "NY",
+              "type": "text"
+            },
+            {
+              "key": "zipCode",
+              "value": "10001",
+              "type": "text"
+            },
+            {
+              "key": "gender",
+              "value": "male",
+              "type": "text"
+            },
+            {
+              "key": "dateOfBirth",
+              "value": "1990-01-01",
+              "type": "text"
+            },
+            {
+              "key": "vehicleMake",
+              "value": "Toyota",
+              "type": "text"
+            },
+            {
+              "key": "vehicleModel",
+              "value": "Camry",
+              "type": "text"
+            },
+            {
+              "key": "vehicleYear",
+              "value": "2020",
+              "type": "text"
+            },
+            {
+              "key": "vehicleColor",
+              "value": "Blue",
+              "type": "text"
+            },
+            {
+              "key": "licensePlate",
+              "value": "ABC123",
+              "type": "text"
+            },
+            {
+              "key": "distanceRedius",
+              "value": "50",
+              "type": "text",
+              "description": "Service radius in miles"
+            },
+            {
+              "key": "serviceCategory",
+              "value": "[\"6507f1d4c5a3e2001f8b4567\", \"6507f1d4c5a3e2001f8b4568\"]",
+              "type": "text",
+              "description": "Array of category IDs"
+            },
+            {
+              "key": "vehicleRegistration",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "vehicleInsurance",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "vehicleImage",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForLockOut",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForJumpOut",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForTierChange",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForFuelDelivery",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "ToolsForSocketWrenches",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForJacks",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForDrills",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "toolsForCodeReaders",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/complete_profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "complete_profile"]
+        },
+        "description": "Complete driver profile with vehicle and tools information (Driver only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Complete Profile (Customer)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "Jane Customer",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "+1987654321",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "456 Oak Ave",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "value": "Los Angeles",
+              "type": "text"
+            },
+            {
+              "key": "state",
+              "value": "CA",
+              "type": "text"
+            },
+            {
+              "key": "zipCode",
+              "value": "90001",
+              "type": "text"
+            },
+            {
+              "key": "gender",
+              "value": "female",
+              "type": "text"
+            },
+            {
+              "key": "dateOfBirth",
+              "value": "1985-05-15",
+              "type": "text"
+            },
+            {
+              "key": "vehicleMake",
+              "value": "Honda",
+              "type": "text"
+            },
+            {
+              "key": "vehicleModel",
+              "value": "Civic",
+              "type": "text"
+            },
+            {
+              "key": "vehicleYear",
+              "value": "2019",
+              "type": "text"
+            },
+            {
+              "key": "vehicleColor",
+              "value": "Red",
+              "type": "text"
+            },
+            {
+              "key": "licensePlate",
+              "value": "XYZ789",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/complete_profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "complete_profile"]
+        },
+        "description": "Complete customer profile with basic vehicle information (Customer only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Complete Profile (Company)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "ABC Roadside Services",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "+1555123456",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "789 Business Blvd",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "value": "Chicago",
+              "type": "text"
+            },
+            {
+              "key": "state",
+              "value": "IL",
+              "type": "text"
+            },
+            {
+              "key": "zipCode",
+              "value": "60601",
+              "type": "text"
+            },
+            {
+              "key": "companyName",
+              "value": "ABC Roadside Services Inc.",
+              "type": "text"
+            },
+            {
+              "key": "companyLogo",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/profile/complete_profile",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "profile", "complete_profile"]
+        },
+        "description": "Complete company profile with business information (Company/Hopper Company only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

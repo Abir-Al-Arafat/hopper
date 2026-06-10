@@ -1,0 +1,246 @@
+{
+  "info": {
+    "_postman_id": "hopper-payment-api-collection",
+    "name": "Hopper Roadside - Payment API",
+    "description": "Payment and earnings endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Make Payment (Webhook)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobRequestId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"amount\": 150,\n  \"price\": 150,\n  \"paymentType\": \"job\",\n  \"earnFrom\": \"job_completion\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/webhook",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "webhook"]
+        },
+        "description": "Create a payment for job or subscription (Customer/Company only). Returns Stripe checkout session URL."
+      },
+      "response": []
+    },
+    {
+      "name": "Make Subscription Payment",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subscriptionId\": \"6507f1d4c5a3e2001f8b4568\",\n  \"amount\": 99,\n  \"price\": 99,\n  \"paymentType\": \"subscription\",\n  \"earnFrom\": \"subscription\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/webhook",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "webhook"]
+        },
+        "description": "Create a subscription payment (Company only). Returns Stripe checkout session URL."
+      },
+      "response": []
+    },
+    {
+      "name": "Confirm Payment",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/confirm-payment?session_id=cs_test_123&companyId=6507f1d4c5a3e2001f8b4567&driverId=6507f1d4c5a3e2001f8b4568&jobRequestId=6507f1d4c5a3e2001f8b4569&paymentType=job&userId=6507f1d4c5a3e2001f8b4570&amount=150&price=150&earnFrom=job_completion",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "confirm-payment"],
+          "query": [
+            {
+              "key": "session_id",
+              "value": "cs_test_123",
+              "description": "Stripe session ID"
+            },
+            {
+              "key": "companyId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            },
+            {
+              "key": "driverId",
+              "value": "6507f1d4c5a3e2001f8b4568"
+            },
+            {
+              "key": "jobRequestId",
+              "value": "6507f1d4c5a3e2001f8b4569"
+            },
+            {
+              "key": "paymentType",
+              "value": "job",
+              "description": "job or subscription"
+            },
+            {
+              "key": "userId",
+              "value": "6507f1d4c5a3e2001f8b4570"
+            },
+            {
+              "key": "amount",
+              "value": "150"
+            },
+            {
+              "key": "price",
+              "value": "150"
+            },
+            {
+              "key": "earnFrom",
+              "value": "job_completion"
+            }
+          ]
+        },
+        "description": "Confirm payment after successful Stripe checkout. This is typically called by Stripe redirect."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Earning Statistics",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/earning_statistic?year=2025",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "earning_statistic"],
+          "query": [
+            {
+              "key": "year",
+              "value": "2025",
+              "description": "Year for statistics"
+            }
+          ]
+        },
+        "description": "Get monthly earning statistics for the year (Company/Hopper Company/Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Payment List",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/payment_list?page=1&limit=10&paymentType=job",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "payment_list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "paymentType",
+              "value": "job",
+              "description": "Filter by payment type: job or subscription"
+            }
+          ]
+        },
+        "description": "Get list of all payments with pagination (Company/Hopper Company/Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Payment Action (Driver)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"paymentId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"action\": \"accept\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/payment/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payment", "action"]
+        },
+        "description": "Driver accepts or rejects payment (Driver only). Action: accept | reject"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

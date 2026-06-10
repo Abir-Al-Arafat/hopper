@@ -1,0 +1,31 @@
+{
+	"name": "Hopper-Roadside",
+	"image": "node:20",
+	"workspaceFolder": "/app",
+	"mounts": [
+		{
+			"source": "/d/Work/hopper-roadside",
+			"target": "/app",
+			"type": "bind"
+		},
+		{
+			"source": "hopper-logs",
+			"target": "/app/logs",
+			"type": "volume"
+		},
+		{
+			"target": "/app/node_modules",
+			"type": "volume"
+		}
+	],
+	"runArgs": [
+		"--name",
+		"hopper-roadside",
+		"-p",
+		"8050:8000",
+		"-p",
+		"8001:8001",
+		"--rm"
+	],
+	"postCreateCommand": "npm install"
+}

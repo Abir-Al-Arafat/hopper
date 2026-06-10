@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "hopper-notification-api-collection",
+    "name": "Hopper Roadside - Notification API",
+    "description": "Notification management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Get All Notifications",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notification"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all notifications for authenticated user (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Notification Count",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification/notification_count",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notification", "notification_count"]
+        },
+        "description": "Get count of unread notifications (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Single Notification",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notification", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get details of a specific notification (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Mark Notifications as Read",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/notification/action",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "notification", "action"]
+        },
+        "description": "Mark all notifications as read for authenticated user (All authenticated users)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "info": {
+    "_postman_id": "hopper-category-api-collection",
+    "name": "Hopper Roadside - Category API",
+    "description": "Service category management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Create Category",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Towing\",\n  \"description\": \"Professional towing services for all vehicle types\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/category/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "category", "create"]
+        },
+        "description": "Create a new service category (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Categories",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/category?page=1&limit=10&searchTerm=",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "category"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "searchTerm",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Get all service categories (All authenticated users)"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Category",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Emergency Towing\",\n  \"description\": \"24/7 emergency towing services\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/category/edit/:categoryId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "category", "edit", ":categoryId"],
+          "variable": [
+            {
+              "key": "categoryId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Update an existing category (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/category/delete/:categoryId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "category", "delete", ":categoryId"],
+          "variable": [
+            {
+              "key": "categoryId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Delete a category (Admin only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "info": {
+    "_postman_id": "hopper-review-api-collection",
+    "name": "Hopper Roadside - Review API",
+    "description": "Review and rating endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Add Review",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobRequestId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"driverId\": \"6507f1d4c5a3e2001f8b4568\",\n  \"rating\": 5,\n  \"comment\": \"Excellent service! Very professional and quick response.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/review/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "review", "create"]
+        },
+        "description": "Add a review and rating for a driver after job completion (Customer only)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

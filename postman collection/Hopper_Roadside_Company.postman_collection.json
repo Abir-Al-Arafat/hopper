@@ -1,0 +1,637 @@
+{
+  "info": {
+    "_postman_id": "hopper-company-api-collection",
+    "name": "Hopper Roadside - Company API",
+    "description": "Company management endpoints for Hopper Roadside application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "hopper-roadside"
+  },
+  "item": [
+    {
+      "name": "Add Dispatcher",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"dispatcher@example.com\",\n  \"name\": \"John Dispatcher\",\n  \"phone\": \"+1234567890\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/add_dispatcher",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "add_dispatcher"]
+        },
+        "description": "Add a new dispatcher to the company (Company/Hopper Company/Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Invitation Code",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/invitation_code",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "invitation_code"]
+        },
+        "description": "Generate invitation code for drivers to join company (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Join Company",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"invitationCode\": \"ABC123XYZ\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/join_company",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "join_company"]
+        },
+        "description": "Driver joins a company using invitation code (Driver only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Assign Driver to Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"driverId\": \"6507f1d4c5a3e2001f8b4568\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/assign_driver",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "assign_driver"]
+        },
+        "description": "Assign a driver to a specific job (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Assign Company to Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jobId\": \"6507f1d4c5a3e2001f8b4567\",\n  \"companyId\": \"6507f1d4c5a3e2001f8b4569\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/assign_company",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "assign_company"]
+        },
+        "description": "Assign a company to handle a job (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Quick Overview",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/quick_overview",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "quick_overview"]
+        },
+        "description": "Get quick overview statistics for the company (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Other Companies Info",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/others_company_info?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "others_company_info"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get information about other companies (Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Company List",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/all_company_list?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "all_company_list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get list of all companies (Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Leave Requests",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/leave_requests?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "leave_requests"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all leave requests from drivers/dispatchers (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Total Earnings",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/total_earnings",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "total_earnings"]
+        },
+        "description": "Get total earnings for the company (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Dispatchers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/all_dispatchers?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "all_dispatchers"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all dispatchers in the company (Company/Hopper Company/Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Drivers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/all_drivers?page=1&limit=10&searchTerm=",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "all_drivers"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "searchTerm",
+              "value": ""
+            }
+          ]
+        },
+        "description": "Get all drivers in the company (Admin/Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Job Status",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/job_status",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "job_status"]
+        },
+        "description": "Get job status statistics (Company/Hopper Company/Dispatcher/Admin only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Available Drivers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/available_drivers?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "available_drivers"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get list of available drivers (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Available Companies",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/available_companies?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "available_companies"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get list of available companies (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Company Overview",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/company_overview",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "company_overview"]
+        },
+        "description": "Get detailed company overview with statistics (Company/Hopper Company only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/driver_details/:driverId",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "driver_details", ":driverId"],
+          "variable": [
+            {
+              "key": "driverId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get detailed information about a specific driver (Admin/Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Job Details",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/driver_job_details/:driverId?page=1&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "company", "driver_job_details", ":driverId"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ],
+          "variable": [
+            {
+              "key": "driverId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Get all job details for a specific driver (Company/Hopper Company/Dispatcher only)"
+      },
+      "response": []
+    },
+    {
+      "name": "Accept Leave Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"approve\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/company/accept_leave_request/:requestId",
+          "host": ["{{base_url}}"],
+          "path": [
+            "api",
+            "v1",
+            "company",
+            "accept_leave_request",
+            ":requestId"
+          ],
+          "variable": [
+            {
+              "key": "requestId",
+              "value": "6507f1d4c5a3e2001f8b4567"
+            }
+          ]
+        },
+        "description": "Accept or reject a leave request (Company/Hopper Company only). Action: approve | reject"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
