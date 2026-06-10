@@ -435,7 +435,7 @@ export const assignJob = async ({
   mileageFee,
   mile,
 }: AssignJobOptions) => {
-  const findJob = await Job.findOne({ _id: jobId });
+  const findJob: any = await Job.findOne({ _id: jobId }).populate('service');
   console.log('findJob =>', findJob);
   if (!findJob) {
     throw new AppError(httpStatus.NOT_FOUND, 'Job not found');
@@ -449,24 +449,14 @@ export const assignJob = async ({
     throw new AppError(httpStatus.NOT_FOUND, 'Service not found');
   }
 
-  console.log(mileageFee, 'mileageFee');
-
   // ✅ FIX: Calculate final total cost FIRST (including mileage fee)
-  const finalTotalCost = Number(findJob?.totalCost) + Number(mileageFee);
+  const finalTotalCost =
+    Number(findJob?.totalCost) +
+    Number(mileageFee || findJob?.service?.milageFee || 0);
 
   // ✅ FIX: Calculate driver commission on FINAL total cost
   const driverPercentage =
     (finalTotalCost / 100) * (100 - Number(findService?.category?.parentage));
-
-  // Log payout calculation for audit trail
-  console.log('Payout Calculation:', {
-    originalCost: findJob?.totalCost,
-    mileageFee: mileageFee,
-    finalTotalCost: finalTotalCost,
-    driverPercentage: findService?.category?.parentage,
-    driverCommission: driverPercentage,
-    companyCommission: finalTotalCost - driverPercentage,
-  });
 
   const driver = await User.findById(driverId).populate('profile');
   if (!driver) {
