@@ -861,10 +861,19 @@ const getAllDrivers = async (
 const driverDetails = async (id: string, user: TAuthUser) => {
   const cacheKey = `driverDetails-${user.userId}-${id}`;
   // Try to fetch from Redis cache first
-  const cached = await getCachedData<{ meta: TMeta; result: any }>(cacheKey);
-  if (cached) {
-    console.log('🚀 Serving from Redis cache');
-    return cached;
+  // const cached = await getCachedData<{ meta: TMeta; result: any }>(cacheKey);
+  // if (cached) {
+  //   console.log('🚀 Serving from Redis cache');
+  //   return cached;
+  // }
+
+  const driverExist = await User.findOne({
+    _id: new mongoose.Types.ObjectId(String(id)),
+    role: USER_ROLE.driver,
+  });
+
+  if (!driverExist) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Driver not found');
   }
 
   const driver = await User.aggregate([
