@@ -743,6 +743,9 @@ const manualJobCreation = async (payload: any, authUser: TAuthUser) => {
       { session },
     );
 
+    console.log('jobRequest in service===>', jobRequest);
+    console.log('jobRequest[0].company===>', jobRequest[0].company);
+
     if (jobRequest[0]._id) {
       const notificationData = {
         type: NOTIFICATION_TYPE.jobRequest as any,

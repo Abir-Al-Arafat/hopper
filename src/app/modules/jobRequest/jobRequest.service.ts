@@ -48,7 +48,6 @@ const acceptJobRequest = async (
   );
 
   const totalMileageFee = Number((mile * job?.service?.milageFee).toFixed(2));
-  console.log(job,"job details in service");
 
   console.log('mile =>', mile, 'totalMileageFee =>', totalMileageFee);
 
@@ -123,7 +122,7 @@ const jobRequestAction = async (
       await PendingPayout.create({
         jobRequestId: jobRequest._id,
         companyId: jobRequest.company,
-        driverId:jobRequest?.driver
+        driverId: jobRequest?.driver,
       });
 
       await driver.save();
@@ -288,16 +287,20 @@ const getJobHistory = async (
   } else {
     userId = { driver: new mongoose.Types.ObjectId(String(user.userId)) };
   }
-  const status = !query.filter
-    ? { $nin: [JOB_STATUS.cancelled, JOB_STATUS.completed] }
-    : query.filter;
+  // const status = !query.filter
+  //   ? { $nin: [JOB_STATUS.cancelled, JOB_STATUS.completed] }
+  //   : query.filter;
 
   const matchStage = {
     $match: {
       ...userId,
-      status: status,
+      // status: status,
     },
   };
+
+  if (query.filter) {
+    matchStage.$match.status = query.filter;
+  }
 
   const result = await findJobHistory(matchStage, query);
 
@@ -408,24 +411,23 @@ const getAllJobs = async (user: TAuthUser, query: Record<string, unknown>) => {
   return result;
 };
 
-
-
-const fetchAllJobRequests = async (query:Record<string, any>) => {
-   const { filters, pagination } = await pickQuery(query);
-  const { searchTerm,customer, company, driver, jobId,  ...filtersData } = filters;
+const fetchAllJobRequests = async (query: Record<string, any>) => {
+  const { filters, pagination } = await pickQuery(query);
+  const { searchTerm, customer, company, driver, jobId, ...filtersData } =
+    filters;
 
   const pipeline: any[] = [];
 
-  if(customer) filtersData.customer = new mongoose.Types.ObjectId(customer);
-  if(company) filtersData.company = new mongoose.Types.ObjectId(company);
-  if(driver) filtersData.driver = new mongoose.Types.ObjectId(driver);
-  if(jobId) filtersData.jobId = new mongoose.Types.ObjectId(jobId);
+  if (customer) filtersData.customer = new mongoose.Types.ObjectId(customer);
+  if (company) filtersData.company = new mongoose.Types.ObjectId(company);
+  if (driver) filtersData.driver = new mongoose.Types.ObjectId(driver);
+  if (jobId) filtersData.jobId = new mongoose.Types.ObjectId(jobId);
 
- // If searchTerm is provided, add a search condition
+  // If searchTerm is provided, add a search condition
   if (searchTerm) {
     pipeline.push({
       $match: {
-        $or: ['status'].map(field => ({
+        $or: ['status'].map((field) => ({
           [field]: {
             $regex: searchTerm,
             $options: 'i',
@@ -435,22 +437,22 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
     });
   }
 
-    if (Object.entries(filtersData).length) {
-      pipeline.push({
-        $match: {
-          $and: Object.entries(filtersData).map(([field, value]) => ({
-            isDeleted: false,
-            [field]: value,
-          })),
-        },
-      });
-    }
- 
+  if (Object.entries(filtersData).length) {
+    pipeline.push({
+      $match: {
+        $and: Object.entries(filtersData).map(([field, value]) => ({
+          isDeleted: false,
+          [field]: value,
+        })),
+      },
+    });
+  }
+
   const { page, limit, skip, sort } =
     paginationHelper.calculatePagination(pagination);
 
   if (sort) {
-    const sortArray = sort.split(',').map(field => {
+    const sortArray = sort.split(',').map((field) => {
       const trimmedField = field.trim();
       if (trimmedField.startsWith('-')) {
         return { [trimmedField.slice(1)]: -1 };
@@ -463,13 +465,15 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
   pipeline.push({
     $facet: {
       totalData: [{ $count: 'total' }],
-      paginatedData: [{ $skip: skip }, { $limit: limit },
+      paginatedData: [
+        { $skip: skip },
+        { $limit: limit },
         {
           $lookup: {
             from: 'users',
             localField: 'customer',
             foreignField: '_id',
-            as: 'customer', 
+            as: 'customer',
           },
         },
         {
@@ -477,7 +481,7 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
             from: 'users',
             localField: 'company',
             foreignField: '_id',
-            as: 'company', 
+            as: 'company',
           },
         },
         {
@@ -485,7 +489,7 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
             from: 'users',
             localField: 'driver',
             foreignField: '_id',
-            as: 'driver', 
+            as: 'driver',
           },
         },
         {
@@ -493,21 +497,18 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
             from: 'jobs',
             localField: 'jobId',
             foreignField: '_id',
-            as: 'jobId', 
+            as: 'jobId',
           },
         },
-       {
+        {
           $addFields: {
             customer: { $arrayElemAt: ['$customer', 0] },
             company: { $arrayElemAt: ['$company', 0] },
             driver: { $arrayElemAt: ['$driver', 0] },
             jobId: { $arrayElemAt: ['$jobId', 0] },
-
           },
         },
-      
       ],
-
     },
   });
 
@@ -520,9 +521,7 @@ const fetchAllJobRequests = async (query:Record<string, any>) => {
     meta: { page, limit, total },
     data,
   };
-  
-}
-
+};
 
 export const JobRequestService = {
   findDriver,
@@ -530,5 +529,6 @@ export const JobRequestService = {
   trackLocation,
   acceptJobRequest,
   jobRequestAction,
-  getAllJobs,fetchAllJobRequests
+  getAllJobs,
+  fetchAllJobRequests,
 };
