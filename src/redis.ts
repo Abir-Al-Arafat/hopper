@@ -10,17 +10,19 @@ interface CacheData {
 }
 
 const redis: RedisClient = new Redis({
-  host: 'localhost',
-  port: 6379,
+  // host: 'localhost',
+  host: process.env.REDIS_HOST || 'redis',
+  port: parseInt(process.env.REDIS_PORT || '6379'),
+  retryStrategy: (times) => {
+    if (times > 10) return null;
+    return Math.min(times * 100, 3000);
+  },
   keyPrefix: 'app:',
   db: 0,
   maxRetriesPerRequest: null,
   connectTimeout: 1000,
   enableOfflineQueue: false,
   showFriendlyErrorStack: true,
-  retryStrategy: (times) => {
-    return Math.min(times * 50, 2000);
-  },
 });
 
 redis.on('connect', () => {
