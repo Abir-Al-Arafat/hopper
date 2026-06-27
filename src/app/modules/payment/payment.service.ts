@@ -41,9 +41,9 @@ const makePayment = async (
   if (payload.subscriptionId) {
     subscription = await Subscription.findById(payload.subscriptionId);
     paymentData.subscriptionId = payload.subscriptionId;
-    paymentData.price = Number((subscription?.price)?.toFixed(2));
+    paymentData.price = Number(subscription?.price?.toFixed(2));
     payload.companyId = user.userId as any;
-    payload.price = Number((subscription?.price)?.toFixed(2));
+    payload.price = Number(subscription?.price?.toFixed(2));
 
     if (!subscription)
       throw new AppError(httpStatus.NOT_FOUND, 'Subscription not found');
@@ -133,7 +133,7 @@ const confirmPayment = async (query: Record<string, unknown>) => {
       await User.findByIdAndUpdate(
         new mongoose.Types.ObjectId(companyId as string),
         { $set: { isSubscribed: true } },
-        { session }
+        { session },
       );
     } else {
       await PaymentHelper.handleNonSubscriptionPayment({
@@ -400,7 +400,6 @@ const unpaidJobRequestList = async (user: TAuthUser) => {
     status: 'completed',
   };
 
-
   if (user.role === USER_ROLE.driver) {
     matchStage.driver = new mongoose.Types.ObjectId(user.userId);
   } else if (user.role === USER_ROLE.customer) {
@@ -462,23 +461,23 @@ const unpaidJobRequestList = async (user: TAuthUser) => {
     },
     { $unwind: { path: '$customer', preserveNullAndEmptyArrays: true } },
 
-   {
-  $project: {
-     _id: 1,  
-    jobId: 1,
-    job: 1,
+    {
+      $project: {
+        _id: 1,
+        jobId: 1,
+        job: 1,
 
-    driver: 1,
-    customer: 1,
+        driver: 1,
+        customer: 1,
 
-    status: 1,
-    completedAt: 1,
-    driverCommission: 1,
+        status: 1,
+        completedAt: 1,
+        driverCommission: 1,
 
-    // ✅ FIX
-    paymentInfo: { $literal: {} },
-  },
-}
+        // ✅ FIX
+        paymentInfo: { $literal: {} },
+      },
+    },
   ]);
 
   return result;
@@ -490,5 +489,5 @@ export const PaymentService = {
   confirmPayment,
   earningStatistic,
   paymentAction,
-  unpaidJobRequestList
+  unpaidJobRequestList,
 };

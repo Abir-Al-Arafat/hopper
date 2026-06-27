@@ -62,7 +62,6 @@ const createJob = async (payload: Partial<TJob> | any, user: TAuthUser) => {
   }
   const service = await Service.findById(payload?.service).populate('category');
 
-  console.log(service, 'service details in job service===>');
   if (!service) {
     throw new AppError(httpStatus.NOT_FOUND, 'Service not found');
   }
@@ -692,6 +691,7 @@ const manualJobCreation = async (payload: any, authUser: TAuthUser) => {
           dropOffLocation,
           totalCost: service?.price + service?.milageFee + service?.totalFee,
           isAssigned: true,
+          source: 'manualBook',
           uid: await jobUidCreate(),
         },
       ],
@@ -1330,6 +1330,7 @@ const getAllJobs = async (query: Record<string, any>) => {
         location: 1,
         dropOffLocation: 1,
         totalCost: 1,
+        source: 1,
         isAssigned: 1,
         manualJob: 1,
         jobRequest: {

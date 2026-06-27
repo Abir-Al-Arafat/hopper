@@ -148,7 +148,7 @@ const paymentAction = catchAsync(async (req, res) => {
 });
 const unpaidJobRequestList = catchAsync(async (req, res) => {
   const result = await PaymentService.unpaidJobRequestList(
-    req.user as TAuthUser
+    req.user as TAuthUser,
   );
   sendResponse(res, {
     data: result,
@@ -164,5 +164,5 @@ export const PaymentController = {
   confirmPayment,
   earningStatistic,
   paymentAction,
-  unpaidJobRequestList
+  unpaidJobRequestList,
 };
