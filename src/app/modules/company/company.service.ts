@@ -1526,7 +1526,12 @@ const assignCompany = async (
   user: TAuthUser,
   payload: { jobId: string; companyId: string },
 ) => {
-  const jobFind = await Job.findById(payload.jobId);
+  // const jobFind = await Job.findById(payload.jobId);
+  const jobFind = await Job.findByIdAndUpdate(
+    payload.jobId,
+    { source: 'partnerBook' },
+    { new: true },
+  );
   if (!jobFind) {
     throw new AppError(httpStatus.NOT_FOUND, 'Job not found');
   }

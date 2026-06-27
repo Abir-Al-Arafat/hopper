@@ -1,6 +1,8 @@
 import { ObjectId } from 'mongoose';
 import { TLocation } from '../user/user.interface';
 
+export type sourceType = 'directBook' | 'partnerBook' | 'manualBook';
+
 export type TJob = {
   customer: ObjectId;
   service: ObjectId;
@@ -24,4 +26,5 @@ export type TJob = {
   isAssigned: boolean;
   callerName: string;
   callerPhone: string;
+  source: sourceType;
 };

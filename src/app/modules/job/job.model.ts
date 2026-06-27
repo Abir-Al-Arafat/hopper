@@ -92,6 +92,11 @@ const jobSchema = new Schema<TJob>(
       type: Boolean,
       default: false,
     },
+    source: {
+      type: String,
+      enum: ['directBook', 'partnerBook', 'manualBook'],
+      default: 'directBook',
+    },
   },
   { timestamps: true },
 );
