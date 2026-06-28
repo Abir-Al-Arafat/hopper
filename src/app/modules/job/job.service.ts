@@ -1112,6 +1112,7 @@ const getAllScheduleJobs = async (user: TAuthUser) => {
 };
 
 const getAllJobs = async (query: Record<string, any>) => {
+  console.log('getAllJobs query===>');
   const { filters, pagination } = await pickQuery(query);
   const {
     searchTerm,
@@ -1188,6 +1189,20 @@ const getAllJobs = async (query: Record<string, any>) => {
     {
       $unwind: {
         path: '$jobRequest',
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $lookup: {
+        from: 'companies',
+        localField: 'jobRequest.company',
+        foreignField: '_id',
+        as: 'company',
+      },
+    },
+    {
+      $unwind: {
+        path: '$company',
         preserveNullAndEmptyArrays: true,
       },
     },
@@ -1345,7 +1360,11 @@ const getAllJobs = async (query: Record<string, any>) => {
                 location: '$driver.location',
               }
             : '$jobRequest.driver',
-          company: '$jobRequest.company',
+          // company: '$jobRequest.company',
+          company: {
+            _id: '$company._id',
+            companyName: '$company.companyName',
+          },
           status: '$jobRequest.status',
           assignedAt: '$jobRequest.assignedAt',
           dispatchedAt: '$jobRequest.dispatchedAt',

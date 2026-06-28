@@ -18,7 +18,7 @@ const jobRequestSchema = new Schema<TJobRequest>(
         'in-progress',
         'en-route',
         'working',
-        'completed', 
+        'completed',
         'cancelled',
         'just',
         'picked-up',
